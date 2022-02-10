@@ -21,7 +21,6 @@ import io.grpc.Status;
  * </pre>
  * {@link #transfer} will generate a transaction containing a single transfer operation, sign it with
  * signing key, call {@link #broadcastTrx} and return the response.
- * </p>
  *
  * <p>In rare cases, when you have to send a transaction consisting of multiple operations, try the
  * following codes,
@@ -33,7 +32,6 @@ import io.grpc.Status;
  *
  *     client.signAndBroadcastTrx(trx, true);
  * </pre>
- * </p>
  */
 public class RpcClient extends Operation.BaseResultFilter<Transaction, Transaction, BroadcastTrxResponse> {
 
@@ -63,6 +61,20 @@ public class RpcClient extends Operation.BaseResultFilter<Transaction, Transacti
      */
     public RpcClient(ApiServiceGrpc.ApiServiceBlockingStub service, String chainName) {
         this(service, null, chainName);
+    }
+
+    /**
+     * Get the Chain Id
+     */
+    public int getChainId() {
+        return chainId;
+    }
+
+    /**
+     * Get the Chain Name
+     */
+    public String getChainName() {
+        return chainName;
     }
 
     /**
@@ -837,7 +849,7 @@ public class RpcClient extends Operation.BaseResultFilter<Transaction, Transacti
     }
 
     /**
-     * Estimate the net & cpu usage of given transaction.
+     * Estimate the net and cpu usage of given transaction.
      * @param trx   the signed transaction
      * @return estimation result
      */
